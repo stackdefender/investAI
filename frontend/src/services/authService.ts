@@ -1,8 +1,9 @@
+
 import { api } from './api';
 import { User, UserProfile } from '../types';
 
 export const authService = {
-  async register(data: { email: string; password: str; full_name: string }) {
+  async register(data: { email: string; password: string; full_name: string }) {
     const res = await api.post('/auth/register', data);
     if (res.data?.access_token) {
       localStorage.setItem('investai_token', res.data.access_token);
@@ -11,7 +12,7 @@ export const authService = {
     return res.data;
   },
 
-  async login(data: { email: string; password: str }) {
+  async login(data: { email: string; password: string }) {
     const res = await api.post('/auth/login', data);
     if (res.data?.access_token) {
       localStorage.setItem('investai_token', res.data.access_token);
@@ -35,7 +36,6 @@ export const authService = {
       const res = await api.get(`/profile/${userId}`);
       return res.data;
     } catch (err) {
-      // Fallback default profile if backend offline
       return {
         user_id: userId,
         age: 32,
